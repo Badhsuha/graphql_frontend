@@ -12,7 +12,7 @@ After cloning both the back-end[graphql_api] and front-end[graphql-fronend] down
 cd into graphql_api and run
 `npm install`
 
-create a new file called config.js in the root director [graphql_api]
+create a new file called `config.js` in the root director `graphql_api`
 inside config.js add code  
  `module.exports = { MONGODB: "mongodb atlas server", SECRET_KEY: "any random string", };`
 
@@ -25,5 +25,5 @@ cd into graphql_frontend and run
 
 keep both fron and backend running
 
-You can find the front-end server running in [http://localhost:3000]
-and the backend server running in [http://localhost:5000]
+You can find the front-end server running in `[http://localhost:3000]`
+and the backend server running in `[http://localhost:5000]`
