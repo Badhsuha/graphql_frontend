@@ -16,3 +16,16 @@
 .post > div {
   margin: 10px;
 }
+
+.ui.form {
+  margin: 0 auto;
+  max-width: 50% !important;
+}
+.ui.form > .btn {
+  width: 100%;
+  text-align: center;
+}
+.resgister > .error {
+  max-width: 50% !important;
+  margin: 10px auto;
+}

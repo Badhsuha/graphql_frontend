@@ -1,8 +1,16 @@
 import React from "react";
-import { Card, Image } from "semantic-ui-react";
+import { Card, Button, Image } from "semantic-ui-react";
 import moment from "moment";
 
 function PostCard({ post }) {
+  const commentOnPost = () => {
+    console.log("comment Post ");
+  };
+
+  const likeComment = () => {
+    console.log("like Post");
+  };
+
   return (
     <Card fluid>
       <Card.Content>
@@ -18,8 +26,35 @@ function PostCard({ post }) {
       </Card.Content>
       <Card.Content>
         <div className="flex">
-          <Card.Meta>Likes:{post.likesCount}</Card.Meta>
-          <Card.Meta>Comments:{post.commentsCount}</Card.Meta>
+          <Button
+            size="mini"
+            color="grey"
+            content="Like"
+            icon="heart"
+            onClick={likeComment}
+            basic
+            label={{
+              basic: true,
+              color: "blue",
+              pointing: "left",
+              content: post.likesCount,
+            }}
+          />
+
+          <Button
+            size="mini"
+            color="grey"
+            content="comments"
+            icon="comments"
+            basic
+            onClick={commentOnPost}
+            label={{
+              basic: true,
+              color: "blue",
+              pointing: "left",
+              content: post.commentsCount,
+            }}
+          />
         </div>
       </Card.Content>
     </Card>
