@@ -25,7 +25,7 @@
   width: 100%;
   text-align: center;
 }
-.resgister > .error {
+.register > div.error {
   max-width: 50% !important;
   margin: 10px auto;
 }

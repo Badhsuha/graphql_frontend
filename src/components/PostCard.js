@@ -1,6 +1,7 @@
 import React from "react";
 import { Card, Button, Image } from "semantic-ui-react";
 import moment from "moment";
+import { Link } from "react-router-dom";
 
 function PostCard({ post }) {
   const commentOnPost = () => {
@@ -22,7 +23,10 @@ function PostCard({ post }) {
         <Card.Header>{post.username}</Card.Header>
         <Card.Description>{post.body}</Card.Description>
         <br></br>
-        <Card.Meta> {moment(post.createdAt).fromNow()} </Card.Meta>
+
+        <Card.Meta as={Link} to={`post/${post.id}`}>
+          {moment(post.createdAt).fromNow()}
+        </Card.Meta>
       </Card.Content>
       <Card.Content>
         <div className="flex">

@@ -1,4 +1,4 @@
-import React from "react";
+import { React, useState } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
 import "semantic-ui-css/semantic.min.css";
@@ -10,13 +10,21 @@ import Navbar from "./components/Navbar";
 import { Container } from "semantic-ui-react";
 
 function App() {
+  const pathname = window.location.pathname;
+  const path = pathname === "/" ? "home" : pathname.split("/")[1].toLowerCase();
+  const [active, setActive] = useState(path);
+
   return (
     <Container>
       <Router>
-        <Navbar />
+        <Navbar setActive={setActive} active={active} />
         <Route exact path="/" component={Home} />
         <Route exact path="/login" component={Login} />
-        <Route exact path="/register" component={Register} />
+        <Route
+          exact
+          path="/register"
+          render={(props) => <Register props={props} setActive={setActive} />}
+        />
       </Router>
     </Container>
   );

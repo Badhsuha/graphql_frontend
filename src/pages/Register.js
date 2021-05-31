@@ -2,8 +2,9 @@ import { React, useState } from "react";
 import { Button, Form } from "semantic-ui-react";
 import gql from "graphql-tag";
 import { useMutation } from "@apollo/react-hooks";
+import "semantic-ui-css/semantic.min.css";
 
-function Register() {
+function Register({ props, setActive }) {
   const [values, setValues] = useState({
     username: "",
     email: "",
@@ -12,9 +13,10 @@ function Register() {
   });
   const [error, setError] = useState({});
 
-  const [addUser, { loding }] = useMutation(REGISTER_USER, {
+  const [addUser, { loading }] = useMutation(REGISTER_USER, {
     update(proxy, result) {
-      console.log(result);
+      setActive("home");
+      props.history.push("/");
     },
     variables: values,
     onCompleted() {
@@ -25,9 +27,9 @@ function Register() {
     },
   });
 
-  const submitForm = async (event) => {
+  const submitForm = (event) => {
     event.preventDefault();
-    await addUser();
+    addUser();
   };
 
   const onChange = (event) => {
@@ -35,12 +37,12 @@ function Register() {
   };
 
   return (
-    <div className="resgister">
+    <div className="register">
       <Form
         size="small"
         onSubmit={submitForm}
-        className={loding ? "loading" : ""}
         noValidate
+        className={loading ? "loading" : ""}
       >
         <Form.Input
           label="Username"
@@ -84,8 +86,9 @@ function Register() {
           </Button>
         </div>
       </Form>
+
       {Object.keys(error).length > 0 && (
-        <div className="ui error message ">
+        <div className="ui error message">
           <ul>
             {Object.values(error).map((err) => (
               <li key={err}>{err}</li>

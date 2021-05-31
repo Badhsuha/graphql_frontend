@@ -1,11 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import { Menu } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 
-function Navbar() {
-  const pathname = window.location.pathname;
-  const path = pathname === "/" ? "home" : pathname.split("/")[1].toLowerCase();
-  const [active, setActive] = useState(path);
+function Navbar({ active, setActive }) {
   const handleItemClick = (e, { name }) => setActive(name);
 
   return (
