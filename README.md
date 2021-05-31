@@ -26,4 +26,4 @@ cd into graphql_frontend and run
 keep both fron and backend running
 
 You can find the front-end server running in [http://localhost:3000]
-You can find the backend server running in [http://localhost:5000]
+and the backend server running in [http://localhost:5000]
