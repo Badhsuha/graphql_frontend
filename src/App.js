@@ -19,7 +19,11 @@ function App() {
       <Router>
         <Navbar setActive={setActive} active={active} />
         <Route exact path="/" component={Home} />
-        <Route exact path="/login" component={Login} />
+        <Route
+          exact
+          path="/login"
+          render={(props) => <Login props={props} setActive={setActive} />}
+        />
         <Route
           exact
           path="/register"

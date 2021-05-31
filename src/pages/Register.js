@@ -4,14 +4,17 @@ import gql from "graphql-tag";
 import { useMutation } from "@apollo/react-hooks";
 import "semantic-ui-css/semantic.min.css";
 
+import { useForm } from "../utils/hooks";
+
 function Register({ props, setActive }) {
-  const [values, setValues] = useState({
+  const [error, setError] = useState({});
+
+  const { onChange, submitForm, values } = useForm(addUserCallABck, {
     username: "",
     email: "",
     password: "",
     confirmPassword: "",
   });
-  const [error, setError] = useState({});
 
   const [addUser, { loading }] = useMutation(REGISTER_USER, {
     update(proxy, result) {
@@ -19,22 +22,15 @@ function Register({ props, setActive }) {
       props.history.push("/");
     },
     variables: values,
-    onCompleted() {
-      setValues({ username: "", email: "", password: "", confirmPassword: "" });
-    },
+
     onError(ApolloError) {
       setError(ApolloError.graphQLErrors[0].extensions.err);
     },
   });
 
-  const submitForm = (event) => {
-    event.preventDefault();
+  function addUserCallABck() {
     addUser();
-  };
-
-  const onChange = (event) => {
-    setValues({ ...values, [event.target.name]: event.target.value });
-  };
+  }
 
   return (
     <div className="register">
