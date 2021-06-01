@@ -1,11 +1,39 @@
-import React from "react";
+import { React, useContext } from "react";
 import { Menu } from "semantic-ui-react";
 import { Link } from "react-router-dom";
+
+import { AuthContext } from "../context/auth";
 
 function Navbar({ active, setActive }) {
   const handleItemClick = (e, { name }) => setActive(name);
 
-  return (
+  const { user, logout } = useContext(AuthContext);
+
+  const logoutbtn = (e) => {
+    setActive("login");
+    logout();
+  };
+  const menubar = user ? (
+    <Menu color="teal" size="large">
+      <Menu.Item
+        color="teal"
+        name={user.username}
+        active
+        onClick={handleItemClick}
+        as={Link}
+        to="/"
+      ></Menu.Item>
+      <Menu.Menu position="right">
+        <Menu.Item
+          color="teal"
+          name="logout"
+          onClick={logoutbtn}
+          as={Link}
+          to="/login"
+        ></Menu.Item>
+      </Menu.Menu>
+    </Menu>
+  ) : (
     <Menu color="teal" size="large">
       <Menu.Item
         color="teal"
@@ -36,6 +64,8 @@ function Navbar({ active, setActive }) {
       </Menu.Menu>
     </Menu>
   );
+
+  return menubar;
 }
 
 export default Navbar;
