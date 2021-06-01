@@ -9,6 +9,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Navbar from "./components/Navbar";
 import { AutProvider } from "./context/auth";
+import AuthRoute from "./utils/AuthRoute";
 
 function App() {
   const pathname = window.location.pathname;
@@ -21,16 +22,8 @@ function App() {
         <Router>
           <Navbar setActive={setActive} active={active} />
           <Route exact path="/" component={Home} />
-          <Route
-            exact
-            path="/login"
-            render={(props) => <Login props={props} setActive={setActive} />}
-          />
-          <Route
-            exact
-            path="/register"
-            render={(props) => <Register props={props} setActive={setActive} />}
-          />
+          <AuthRoute exact path="/login" component={Login} />
+          <AuthRoute exact path="/register" component={Register} />
         </Router>
       </Container>
     </AutProvider>

@@ -1,9 +1,36 @@
-import React from "react";
-import { Card, Button, Image } from "semantic-ui-react";
+import React, { useContext } from "react";
+import { Card, Button, Image, Label, Icon, Loader } from "semantic-ui-react";
 import moment from "moment";
 import { Link } from "react-router-dom";
+import "semantic-ui-css/semantic.min.css";
+
+import { AuthContext } from "../context/auth";
+import { gql } from "@apollo/client";
+import { useMutation } from "@apollo/react-hooks";
+import { FETCH_POST_QUERY } from "../utils/graphqlQuery";
 
 function PostCard({ post }) {
+  const { user } = useContext(AuthContext);
+
+  const [deletPost, { loading }] = useMutation(DELETE_POST_QUERY, {
+    update(proxy, result) {
+      const data = proxy.readQuery({
+        query: FETCH_POST_QUERY,
+      });
+      proxy.writeQuery({
+        query: FETCH_POST_QUERY,
+        data: { getPosts: [...data.getPosts.filter((p) => p.id !== post.id)] },
+      });
+    },
+    variables: { postId: post.id },
+    onError(error) {
+      console.log(error);
+    },
+  });
+  const onPostDelete = () => {
+    deletPost();
+  };
+
   const commentOnPost = () => {
     console.log("comment Post ");
   };
@@ -13,7 +40,7 @@ function PostCard({ post }) {
   };
 
   return (
-    <Card fluid>
+    <Card fluid style={{ marginBottom: "20px" }} className="loading">
       <Card.Content>
         <Image
           floated="right"
@@ -21,7 +48,9 @@ function PostCard({ post }) {
           src="https://react.semantic-ui.com/images/avatar/large/molly.png"
         />
         <Card.Header>{post.username}</Card.Header>
-        <Card.Description>{post.body}</Card.Description>
+        <Card.Description>
+          <div style={{}}>{post.body}</div>
+        </Card.Description>
         <br></br>
 
         <Card.Meta as={Link} to={`post/${post.id}`}>
@@ -44,7 +73,23 @@ function PostCard({ post }) {
               content: post.likesCount,
             }}
           />
-
+          {user && post.username === user.username && (
+            <Label
+              onClick={onPostDelete}
+              style={{ cursor: "pointer" }}
+              size="small"
+            >
+              {loading ? (
+                <Loader active />
+              ) : (
+                <Icon
+                  name={loading ? "redo" : "trash"}
+                  size="big"
+                  color="red"
+                />
+              )}
+            </Label>
+          )}
           <Button
             size="mini"
             color="grey"
@@ -64,4 +109,11 @@ function PostCard({ post }) {
     </Card>
   );
 }
+
+const DELETE_POST_QUERY = gql`
+  mutation deletePost($postId: ID!) {
+    deletePost(postId: $postId)
+  }
+`;
+
 export default PostCard;

@@ -7,7 +7,7 @@ import "semantic-ui-css/semantic.min.css";
 import { AuthContext } from "../context/auth";
 import { useForm } from "../utils/hooks";
 
-function Login({ props, setActive }) {
+function Login(props) {
   const context = useContext(AuthContext);
   const [error, setError] = useState({});
 
@@ -18,7 +18,6 @@ function Login({ props, setActive }) {
 
   const [loginUser, { loading }] = useMutation(LOGIN_USER, {
     update(proxy, { data: { login: userData } }) {
-      setActive("home");
       context.login(userData);
       props.history.push("/");
     },

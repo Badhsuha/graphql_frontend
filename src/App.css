@@ -21,6 +21,9 @@
   margin: 0 auto;
   max-width: 50% !important;
 }
+.ui.form.Post {
+  max-width: 80% !important;
+}
 .ui.form > .btn {
   width: 100%;
   text-align: center;
