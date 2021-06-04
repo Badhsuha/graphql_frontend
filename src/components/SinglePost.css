@@ -1,0 +1,22 @@
+.ui.comment {
+  min-width: 100% !important;
+  display: flex;
+}
+.ui.comment > .field {
+  width: 90% !important;
+  margin: 0 !important;
+}
+.ui.comment > .button {
+  width: 120px;
+}
+
+.commentMain {
+  min-height: 600px;
+  padding: 20px;
+}
+
+.commentMain > .commentBody {
+}
+.commentMain > .commentBody > .singleComment {
+  border-radius: 10px;
+}

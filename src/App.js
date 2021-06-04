@@ -10,6 +10,7 @@ import Register from "./pages/Register";
 import Navbar from "./components/Navbar";
 import { AutProvider } from "./context/auth";
 import AuthRoute from "./utils/AuthRoute";
+import SinglePost from "./components/SinlePost";
 
 function App() {
   const pathname = window.location.pathname;
@@ -24,6 +25,7 @@ function App() {
           <Route exact path="/" component={Home} />
           <AuthRoute exact path="/login" component={Login} />
           <AuthRoute exact path="/register" component={Register} />
+          <Route exact path="/post/:postId" component={SinglePost} />
         </Router>
       </Container>
     </AutProvider>

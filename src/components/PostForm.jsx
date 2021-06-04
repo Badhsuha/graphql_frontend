@@ -15,6 +15,7 @@ function PostForm() {
 
   const [addPost, { loading }] = useMutation(ADD_POST, {
     update(proxy, result) {
+      setError({});
       const data = proxy.readQuery({
         query: FETCH_POST_QUERY,
         variables: values,
@@ -42,7 +43,7 @@ function PostForm() {
           name="body"
           placeholder="Write Post...."
           type="textarea"
-          error={Boolean(error)}
+          error={error.error ? true : false}
           value={values.body}
           onChange={onChange}
         />
